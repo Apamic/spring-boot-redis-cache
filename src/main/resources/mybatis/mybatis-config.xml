@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!--驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!--oracle不支持other value="NULL"大写-->
+        <setting name="jdbcTypeForNull" value="NULL" />
+
+
+        <!--显示的指定每个我们需要更改的配置的值，即使他是默认的。防止版本跟新带来的问题-->
+        <!--延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+        <!--别名处理器-->
+    <typeAliases>
+        <!--别名不区分大小写-->
+        <!--为某个java类起别名 type默认类名小写:employee; alias指定新的别名-->
+        <!--<typeAlias type="com.movev.springbootdatajdbc.bean.Employee" alias="emp"/>-->
+
+        <!--批量别名package:为某个包下起别名; name指定包名（为当前包以及下面所有的后代包的每一个类都起一个默认别名（类名小写））-->
+        <!--<package name="com.movev.springbootdatajdbc.bean" />-->
+
+        <!--在批量起别名的情况下，使用@Alias注解为某个类型指定新的别名-->
+    </typeAliases>
+
+    <typeHandlers>
+        <!--在mybatis低版本没有时间类型处理器-->
+
+    </typeHandlers>
+
+    <!--环境配置 environments可以配置多种环境,default指定使用环境
+      id为environment的唯一标识
+      单个environment配置一个具体的环境信息必须有transactionManager:事物管理器
+                                                   type:事物管理器类型;JDBC()|MANAGED()
+                                                   自定义事物管理器:实现TransactionFactory接口。type指定类名
+      和dataSource:数据源
+        type:数据源类型 UNPOOL|POOLED|JNDI
+        自定义数据源:实现DataSourceFactory接口,type是全类名
+            -->
+    <!--<environments default="">-->
+        <!--<environment id="">-->
+            <!--<transactionManager type=""></transactionManager>-->
+            <!--<dataSource type=""></dataSource>-->
+        <!--</environment>-->
+    <!--</environments>-->
+
+
+    <!--databaseIdProvider支持多数据库厂商
+            type="DB_VENDOR":VendorDatabaseIdProvider
+              作用就是得到数据库厂商的标识（驱动getDatabaseProductName()）,
+              myBatis就能根据数据库厂商标识来自行不同的ｓｑｌ,
+              MySql Oracle SQL Server等等-->
+    <databaseIdProvider type="DB_VENDOR">
+        <!--为不同的数据库厂商起别名-->
+        <property name="MySql" value="mysql"></property>
+        <property name="Oracle" value="oracle"></property>
+    </databaseIdProvider>
+
+
+    <!--mappers:将sql映射注册到全局配置中-->
+    <!--mapper:注册一个SQL映射
+           resource:引用类路径下的ＳＱＬ映射文件
+           url: 应用网络路径或磁盘路径下的SQL映射文件
+           class：引用（注册）接口
+              1，有sql映射文件，映射文件名必须和接口同名，并且放在与接口同一目录下
+              2，没有SQL映射文件，所有的SQL都是利用注解写在接口上
+              推荐：
+                    比较重要的Dao接口我们来写SQL映射文件
+                    不重要 简单的Dao接口可以使用注解
+     -->
+    <!--package批量导入 需要同包 同名-->
+    <!--<mappers>-->
+        <!--<mapper resource="" url="" class=""></mapper>-->
+        <!--<package name=""></package>-->
+    <!--</mappers>-->
+</configuration>
