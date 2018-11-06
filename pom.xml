@@ -58,6 +58,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!--redis-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--</dependency>-->
+
+
         <!-- https://mvnrepository.com/artifact/javax.cache/cache-api -->
         <dependency>
             <groupId>javax.cache</groupId>

@@ -1,12 +1,15 @@
 package com.move.spring.wed.springbootwed.service;
 
 import com.move.spring.wed.springbootwed.bean.Employee;
-import com.move.spring.wed.springbootwed.dao.EmployeeMapper;
+import com.move.spring.wed.springbootwed.bean.EmployeeExample;
+import com.move.spring.wed.springbootwed.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@CacheConfig(cacheNames = "emp") //抽取缓存的公共配置
 @Service
 public class EmployeeService {
 
@@ -56,4 +59,62 @@ public class EmployeeService {
         employeeMapper.updateByPrimaryKey(employee);
         return employee;
     }
+
+    /**
+     * @CacheEvict: 清除缓存
+     *  key: 指定要清除的数据
+     *  allEntries = true 清除缓存中所有的数据
+     *  beforeInvocation = false 缓存的清除是在方法执行之后，方法出现异常不会清除缓存
+     *  beforeInvocation = true 缓存的清除是在方法执行之前，无论方法出现异常，缓存都会清除
+     * @param id
+     */
+    @CacheEvict(value = "emp", /*key = "#id"*/allEntries = true,beforeInvocation = true)
+    public void deleteEmp(Integer id) {
+        System.out.println("deleteEmp" + id);
+//        employeeMapper.deleteByPrimaryKey(id);
+//        int i = 10/0;
+    }
+
+
+//    public List<Employee> getEmpByLastName() {
+//        //封装员工查询条件的example
+//        EmployeeExample example = new EmployeeExample();
+//        EmployeeExample.Criteria criteria = example.createCriteria();
+//        criteria.andLastnameLike("王磊");
+//        criteria.andGenderEqualTo(1);
+//        EmployeeExample.Criteria criteria2 = example.createCriteria();
+//        criteria2.andEmailLike("%w%");
+//        //拼装或 or
+//        example.or(criteria2);
+//        System.out.println(example);
+//        List<Employee> employeeList = employeeMapper.selectByExample(example);
+//        return employeeList;
+//    }
+
+
+    /**
+     * @Caching: 定义复杂的缓存规则
+     * @param lastName
+     * @return
+     */
+
+    @Caching(
+        cacheable = {
+               @Cacheable(/*value = "emp",*/key = "#lastName")
+        }
+//        ,
+//        put = {
+//                @CachePut(value = "emp",key = "#result.id"),
+//                @CachePut(value = "emp",key = "#result.email")
+//        }
+    )
+    public List<Employee> getEmpByLastName(String lastName) {
+        System.out.println(lastName);
+        EmployeeExample example = new EmployeeExample();
+        EmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andLastnameLike(lastName);
+        return employeeMapper.selectByExample(example);
+    }
+
+
 }

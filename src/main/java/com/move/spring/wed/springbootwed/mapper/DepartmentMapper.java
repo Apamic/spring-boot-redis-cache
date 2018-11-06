@@ -1,10 +1,9 @@
-package com.move.spring.wed.springbootwed.dao;
+package com.move.spring.wed.springbootwed.mapper;
 
 import com.move.spring.wed.springbootwed.bean.Department;
 import com.move.spring.wed.springbootwed.bean.DepartmentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
 
 public interface DepartmentMapper {

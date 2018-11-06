@@ -51,7 +51,7 @@
 
 
         <!--javaClientGenerator 指定Mapper接口-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.move.spring.wed.springbootwed.dao"  targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.move.spring.wed.springbootwed.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 

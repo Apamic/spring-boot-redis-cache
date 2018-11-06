@@ -1,17 +1,13 @@
 package com.move.spring.wed.springbootwed.controller;
 
-import com.move.spring.wed.springbootwed.bean.Department;
 import com.move.spring.wed.springbootwed.bean.Employee;
-import com.move.spring.wed.springbootwed.dao.DepartmentMapper;
 import com.move.spring.wed.springbootwed.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 
 @RestController
@@ -36,5 +32,19 @@ public class HelloController {
     public Employee update(Employee employee) {
         Employee emp = employeeService.updateEmp(employee);
         return emp;
+    }
+
+
+    @GetMapping("/deleteemp")
+    public String deleteEmp(Integer id) {
+        employeeService.deleteEmp(id);
+        return "success";
+    }
+
+
+    @GetMapping("/getEmpByLastName/{lastName}")
+    public List<Employee> getEmpByLastName(@PathVariable("lastName") String lastName) {
+        List<Employee> empByLastName = employeeService.getEmpByLastName(lastName);
+        return empByLastName;
     }
 }

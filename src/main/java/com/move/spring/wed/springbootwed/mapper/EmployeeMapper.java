@@ -1,4 +1,4 @@
-package com.move.spring.wed.springbootwed.dao;
+package com.move.spring.wed.springbootwed.mapper;
 
 import com.move.spring.wed.springbootwed.bean.Employee;
 import com.move.spring.wed.springbootwed.bean.EmployeeExample;
