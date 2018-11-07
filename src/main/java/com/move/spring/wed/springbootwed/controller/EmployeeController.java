@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-public class HelloController {
+public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;

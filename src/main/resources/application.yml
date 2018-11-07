@@ -1,7 +1,10 @@
 server:
-  port: 8083
+  port: 8086
 
 spring:
+  redis:
+    host: 192.168.80.129  #链接虚拟机地址
+
   datasource:
     username: root
     password: password
@@ -40,6 +43,7 @@ mybatis:
 logging:
   level:
     com.move.spring.wed.springbootwed.dao: debug
+
 
 
 
