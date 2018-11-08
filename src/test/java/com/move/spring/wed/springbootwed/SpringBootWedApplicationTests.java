@@ -30,8 +30,8 @@ public class SpringBootWedApplicationTests {
     @Autowired
     StringRedisTemplate stringRedisTemplate; //k - v 都字符串
 
-    @Autowired
-    RedisTemplate<Object,Employee> employeeRedisTemplate;
+//    @Autowired
+//    RedisTemplate redisTemplate;
 
     /**
      * redis常见的五大数据类型
@@ -56,7 +56,7 @@ public class SpringBootWedApplicationTests {
         //1,将数据以JOSN的方式保存
         //  (1)自己将对象转为josn
         //  (2)redisTemplate默认的序列化规则
-        employeeRedisTemplate.opsForValue().set("emp-01",employee);
+        redisTemplate.opsForValue().set("emp-01",employee);
     }
 
     @Test
