@@ -37,7 +37,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *               3 RedisTemplate<object,object> 是默认使用的ＪＤＫ的序列化机
  *      ４），自定义CacheManager
  */
-@EnableCaching
+@EnableCaching(proxyTargetClass = true)
 public class SpringBootWedApplication {
 
     public static void main(String[] args) {
