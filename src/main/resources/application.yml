@@ -3,12 +3,18 @@ server:
 
 spring:
   redis:
-    host: 192.168.80.129  #链接虚拟机地址
-
+    host: 192.168.80.130  #链接虚拟机地址
+    #timeout: 1s
+    #lettuce:
+    #  pool:
+    #    max-active: 8
+    #    max-idle: 8
+    #    min-idle: 0
+    #    max-wait: -1ms
   datasource:
     username: root
     password: password
-    url: jdbc:mysql://192.168.80.129:3306/jdbc?useSSL=false&allowMultiQueries=true
+    url: jdbc:mysql://192.168.80.130:3306/jdbc?useSSL=false&allowMultiQueries=true
 
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -42,10 +48,9 @@ mybatis:
 #开启SQL日志
 logging:
   level:
-    com.move.spring.wed.springbootwed.dao: debug
+    com.move.spring.wed.springbootwed.mapper: debug
 
-
-
+#debug: true
 
 
 

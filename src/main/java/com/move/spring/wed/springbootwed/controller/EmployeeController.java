@@ -44,6 +44,7 @@ public class EmployeeController {
 
     @GetMapping("/getEmpByLastName/{lastName}")
     public List<Employee> getEmpByLastName(@PathVariable("lastName") String lastName) {
+        System.out.println(lastName);
         List<Employee> empByLastName = employeeService.getEmpByLastName(lastName);
         return empByLastName;
     }

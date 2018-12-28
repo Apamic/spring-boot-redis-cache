@@ -38,6 +38,7 @@ public class EmployeeService {
      */
     @Cacheable(value = {"emp"}
 //    , keyGenerator = "myKeyGenerator", condition = "#a0 > 1", unless = "#a0 == 2"
+//            , key = "#result.id"
     )
     public Employee getEmp(Integer id) {
         Employee emp = employeeMapper.selectByPrimaryKey(id);
@@ -94,13 +95,15 @@ public class EmployeeService {
 
     /**
      * @Caching: 定义复杂的缓存规则
-     * @param lastName
+     * @param
      * @return
      */
 
     @Caching(
         cacheable = {
-               @Cacheable(/*value = "emp",*/key = "#lastName")
+               @Cacheable(value = "emp"
+//                       key = "#result"
+               )
         }
 //        ,
 //        put = {
@@ -113,8 +116,23 @@ public class EmployeeService {
         EmployeeExample example = new EmployeeExample();
         EmployeeExample.Criteria criteria = example.createCriteria();
         criteria.andLastnameLike(lastName);
+
+
         return employeeMapper.selectByExample(example);
     }
 
-
+//        public List<Employee> getEmpByLastName() {
+//        //封装员工查询条件的example
+//        EmployeeExample example = new EmployeeExample();
+//        EmployeeExample.Criteria criteria = example.createCriteria();
+//        criteria.andLastnameLike("王磊");
+//        criteria.andGenderEqualTo(1);
+//        EmployeeExample.Criteria criteria2 = example.createCriteria();
+//        criteria2.andEmailLike("%w%");
+//        //拼装或 or
+//        example.or(criteria2);
+//        System.out.println(example);
+//        List<Employee> employeeList = employeeMapper.selectByExample(example);
+//        return employeeList;
+//    }
 }

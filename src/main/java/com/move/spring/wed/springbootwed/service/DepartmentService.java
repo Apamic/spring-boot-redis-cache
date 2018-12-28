@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
-public class DeptService {
+public class DepartmentService {
 
     @Autowired
     DepartmentMapper departmentMapper;
@@ -21,8 +21,9 @@ public class DeptService {
      * @param id
      * @return
      */
-    @Cacheable(cacheNames = "dept",cacheManager = "cacheManager")
+    @Cacheable(cacheNames = "dept",keyGenerator = "myKeyGenerator" )
     public Department getDeptById(Integer id) {
+
         System.out.println("查询部门" + id);
         Department department = departmentMapper.selectByPrimaryKey(id);
         return department;

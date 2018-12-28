@@ -26,6 +26,7 @@ import java.util.List;
 
 @Configuration
 public class MyRedisConfig {
+
     @Bean
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException{
         // 1.创建 redisTemplate 模版
@@ -50,14 +51,19 @@ public class MyRedisConfig {
 
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
-        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-        redisCacheConfiguration.entryTtl(Duration.ofDays(1));
-        redisCacheConfiguration.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()));
-        redisCacheConfiguration .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofDays(1))
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+                .disableCachingNullValues();
 
-        RedisCacheManager cacheManager = RedisCacheManager.builder(connectionFactory).cacheDefaults(redisCacheConfiguration).transactionAware().build();
 
-        return cacheManager;
+        RedisCacheManager redisCacheManager = RedisCacheManager.builder(connectionFactory)
+                .cacheDefaults(redisCacheConfiguration)
+                .transactionAware()
+                .build();
+
+        return redisCacheManager;
     }
 
 }
